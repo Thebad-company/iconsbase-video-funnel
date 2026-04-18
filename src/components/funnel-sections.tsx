@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { EditorMockup } from "./editor-mockup";
+import heroEditor from "@/assets/hero-editor.jpg";
+import workEnvironment from "@/assets/work-environment.jpg";
+import proofEdit from "@/assets/proof-edit.jpg";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -52,8 +55,20 @@ export function Hero() {
             </a>
           </div>
         </div>
-        <div data-hero-mock className="lg:col-span-6">
-          <EditorMockup />
+        <div data-hero-mock className="lg:col-span-6 relative">
+          <div className="relative">
+            <img
+              src={heroEditor}
+              alt="Editor at work in a studio"
+              width={1280}
+              height={960}
+              className="w-full h-[280px] md:h-[340px] object-cover rounded-lg border border-border"
+            />
+            <div className="absolute -bottom-10 -left-6 md:-left-10 w-[78%] md:w-[82%]">
+              <EditorMockup />
+            </div>
+          </div>
+          <div className="h-12 md:h-16" />
         </div>
       </div>
     </section>
@@ -337,7 +352,15 @@ export function WorkEnvironment() {
             ))}
           </ul>
         </div>
-        <div data-reveal>
+        <div data-reveal className="space-y-6">
+          <img
+            src={workEnvironment}
+            alt="Editor's workspace with storyboard, color reference and camera"
+            width={1280}
+            height={1280}
+            loading="lazy"
+            className="w-full aspect-[5/4] object-cover rounded-lg border border-border"
+          />
           <BriefMockup />
         </div>
       </div>
@@ -497,9 +520,21 @@ export function Proof() {
   return (
     <section id="proof" className="py-28">
       <div className="container-editorial">
-        <div className="mb-16 max-w-2xl" data-reveal>
-          <span className="eyebrow">13 · Proof</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl">Outcomes, not testimonials.</h2>
+        <div className="mb-16 grid lg:grid-cols-12 gap-10 items-end">
+          <div className="lg:col-span-5 max-w-2xl" data-reveal>
+            <span className="eyebrow">13 · Proof</span>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl">Outcomes, not testimonials.</h2>
+          </div>
+          <div className="lg:col-span-7" data-reveal>
+            <img
+              src={proofEdit}
+              alt="Hands editing on a colored shortcut keyboard"
+              width={1280}
+              height={800}
+              loading="lazy"
+              className="w-full aspect-[16/9] object-cover rounded-lg border border-border"
+            />
+          </div>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {[
