@@ -1,19 +1,12 @@
-import { Link } from "@tanstack/react-router";
 const logo = "/iconsbase-logo.png";
 
 export function SiteNav() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/60">
       <div className="container-editorial flex items-center justify-between h-16">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="IconsBase — The AI Institute" className="h-8 w-auto" width={160} height={48} />
-        </Link>
-        <nav className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
-          <a href="#system" className="hover:text-foreground transition-colors">System</a>
-          <a href="#roles" className="hover:text-foreground transition-colors">Roles</a>
-          <a href="#program" className="hover:text-foreground transition-colors">Program</a>
-          <a href="#proof" className="hover:text-foreground transition-colors">Proof</a>
-        </nav>
+        <a href="/" className="flex items-center gap-2">
+          <img src={logo} alt="IconsBase — The AI Institute" className="h-12 w-auto" width={240} height={72} />
+        </a>
         <a href="#apply" className="text-xs uppercase tracking-[0.2em] px-4 py-2.5 bg-navy text-navy-foreground hover:bg-navy/90 transition-colors">
           Apply
         </a>
