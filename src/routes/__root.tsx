@@ -29,14 +29,15 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "IconsBase Video Editing Cohort" },
+      { name: "description", content: "Professional video editing training program with paid internships and job placement" },
+      { name: "author", content: "IconsBase" },
+      { property: "og:title", content: "IconsBase Video Editing Cohort" },
+      { property: "og:description", content: "Professional video editing training program with paid internships and job placement" },
+      { property: "og:image", content: "/og-image.jpg" },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:site", content: "@IconsBase" },
     ],
     links: [
       {
