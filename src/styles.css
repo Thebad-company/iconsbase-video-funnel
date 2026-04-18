@@ -69,8 +69,8 @@
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.18 0.005 85);
 
-  /* Deep navy as primary */
-  --primary: oklch(0.27 0.04 250);
+  /* Brand navy #012148 */
+  --primary: oklch(0.244 0.062 263);
   --primary-foreground: oklch(0.98 0.005 85);
 
   --secondary: oklch(0.95 0.005 85);
@@ -82,11 +82,11 @@
   --accent: oklch(0.93 0.01 85);
   --accent-foreground: oklch(0.18 0.005 85);
 
-  /* Muted gold */
-  --gold: oklch(0.74 0.09 80);
+  /* Brand gold #FDB515 */
+  --gold: oklch(0.797 0.158 78);
   --gold-foreground: oklch(0.18 0.005 85);
 
-  --navy: oklch(0.27 0.04 250);
+  --navy: oklch(0.244 0.062 263);
   --navy-foreground: oklch(0.98 0.005 85);
 
   --destructive: oklch(0.55 0.2 27);
