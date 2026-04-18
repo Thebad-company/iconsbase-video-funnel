@@ -520,9 +520,21 @@ export function Proof() {
   return (
     <section id="proof" className="py-28">
       <div className="container-editorial">
-        <div className="mb-16 max-w-2xl" data-reveal>
-          <span className="eyebrow">13 · Proof</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl">Outcomes, not testimonials.</h2>
+        <div className="mb-16 grid lg:grid-cols-12 gap-10 items-end">
+          <div className="lg:col-span-5 max-w-2xl" data-reveal>
+            <span className="eyebrow">13 · Proof</span>
+            <h2 className="mt-4 font-display text-4xl md:text-5xl">Outcomes, not testimonials.</h2>
+          </div>
+          <div className="lg:col-span-7" data-reveal>
+            <img
+              src={proofEdit}
+              alt="Hands editing on a colored shortcut keyboard"
+              width={1280}
+              height={800}
+              loading="lazy"
+              className="w-full aspect-[16/9] object-cover rounded-lg border border-border"
+            />
+          </div>
         </div>
         <div className="grid md:grid-cols-3 gap-8">
           {[
