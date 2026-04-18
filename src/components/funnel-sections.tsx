@@ -2,19 +2,21 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LeadCaptureForm, ApplicationFormSection } from "./lead-capture-form";
-import heroEditingScreen from "@/assets/hero-editing-screen.png";
-import realWorkEnvironment from "@/assets/real-work-environment.png";
-import proofEdit from "@/assets/proof-edit.jpg";
-import portfolioLongform from "@/assets/portfolio-longform.png";
-import portfolioShortform from "@/assets/portfolio-shortform.png";
-import portfolioAds from "@/assets/portfolio-ads.png";
-import portfolioPodcast from "@/assets/portfolio-podcast.png";
-import portfolioVlog from "@/assets/portfolio-vlog.png";
-import avatar1 from "@/assets/avatar-1.png";
-import avatar2 from "@/assets/avatar-2.png";
-import avatar3 from "@/assets/avatar-3.png";
-import avatar4 from "@/assets/avatar-4.png";
-import avatar5 from "@/assets/avatar-5.png";
+
+// Asset paths (from public directory)
+const heroEditingScreen = "/hero-editing-screen.png";
+const realWorkEnvironment = "/real-work-environment.png";
+const proofEdit = "/proof-edit.jpg";
+const portfolioLongform = "/portfolio-longform.png";
+const portfolioShortform = "/portfolio-shortform.png";
+const portfolioAds = "/portfolio-ads.png";
+const portfolioPodcast = "/portfolio-podcast.png";
+const portfolioVlog = "/portfolio-vlog.png";
+const avatar1 = "/avatar-1.png";
+const avatar2 = "/avatar-2.png";
+const avatar3 = "/avatar-3.png";
+const avatar4 = "/avatar-4.png";
+const avatar5 = "/avatar-5.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -111,13 +113,13 @@ export function TrustBar() {
 
 /* --------------------------- CLIENTS SHOWCASE ---------------------------- */
 const clients = [
-  { name: "TechVision Studios", subscribers: "245k Subscribers" },
-  { name: "Creative Minds", subscribers: "180k Subscribers" },
-  { name: "Digital Pulse", subscribers: "520k Subscribers" },
-  { name: "Content Creators Co", subscribers: "95k Subscribers" },
-  { name: "Media Masters", subscribers: "310k Subscribers" },
-  { name: "Studio Nexus", subscribers: "420k Subscribers" },
-  { name: "Pixel Perfect", subscribers: "155k Subscribers" },
+  { name: "TechVision Studios", subscribers: "245k Subscribers", icon: "/client-logo-1.png" },
+  { name: "Creative Minds", subscribers: "180k Subscribers", icon: "/avatar-1.png" },
+  { name: "Digital Pulse", subscribers: "520k Subscribers", icon: "/avatar-2.png" },
+  { name: "Content Creators Co", subscribers: "95k Subscribers", icon: "/avatar-3.png" },
+  { name: "Media Masters", subscribers: "310k Subscribers", icon: "/avatar-4.png" },
+  { name: "Studio Nexus", subscribers: "420k Subscribers", icon: "/avatar-5.png" },
+  { name: "Pixel Perfect", subscribers: "155k Subscribers", icon: "/avatar-1.png" },
 ];
 
 export function ClientsShowcase() {
@@ -143,9 +145,17 @@ export function ClientsShowcase() {
               >
                 {/* Logo Circle */}
                 <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-navy-foreground/10 backdrop-blur-sm border-2 border-navy-foreground/20 flex items-center justify-center mb-4 group-hover:scale-105 group-hover:border-gold/50 transition-all duration-300 overflow-hidden">
-                  <span className="text-4xl md:text-5xl font-display text-navy-foreground/80">
-                    {client.name.charAt(0)}
-                  </span>
+                  {client.icon ? (
+                    <img
+                      src={client.icon}
+                      alt={client.name}
+                      className="w-full h-full object-cover p-2"
+                    />
+                  ) : (
+                    <span className="text-4xl md:text-5xl font-display text-navy-foreground/80">
+                      {client.name.charAt(0)}
+                    </span>
+                  )}
                 </div>
                 
                 {/* Client Info */}
@@ -382,27 +392,28 @@ const roles = [
     type: "Long-form storytelling",
     income: "₹40k – ₹2L / month",
     out: "20-min retention edits, B-roll layering, narrative pacing.",
-    img: "/long-form.png",
+    img: "/portfolio-longform.png",
   },
   {
     t: "Short-form Editor",
     type: "Reels · Shorts · TikTok",
     income: "₹500 – ₹5k / edit",
     out: "Hook-first cuts, captions, motion accents, trend-fluent.",
-    img: "/short-form.png",
+    img: "/portfolio-shortform.png",
   },
   {
     t: "Ads Editor",
     type: "Performance creative",
     income: "₹50k – ₹3L / month",
     out: "UGC variants, A/B hooks, conversion-driven cutdowns.",
+    img: "/portfolio-ads.png",
   },
   {
     t: "Podcast Editor",
     type: "Audio + video",
     income: "₹15k – ₹80k / project",
     out: "Multi-cam sync, audio cleanup, viral clip extraction.",
-    img: "/podcast.png",
+    img: "/portfolio-podcast.png",
   },
 ];
 
@@ -422,33 +433,33 @@ export function RolesGrid() {
             <article
               key={r.t}
               data-reveal
-              className="group relative bg-card p-8 lg:p-10 min-h-[320px] flex flex-col justify-between cursor-pointer overflow-hidden lift"
+              className="group relative bg-card p-8 lg:p-10 min-h-[580px] flex flex-col justify-start cursor-pointer overflow-hidden lift"
             >
-              {/* Background Image on Hover */}
-              {r.img && (
-                <div 
-                  className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500"
-                  style={{
-                    backgroundImage: `url(${r.img})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundRepeat: 'no-repeat',
-                  }}
-                />
-              )}
-
               {/* Content */}
-              <div className="text-xs tabular-nums text-muted-foreground relative z-10">0{i + 1}</div>
-              <div className="relative z-10">
+              <div className="text-xs tabular-nums text-muted-foreground mb-4">0{i + 1}</div>
+              <div className="mb-8">
                 <h3 className="font-display text-2xl mb-2">{r.t}</h3>
-                <p className="text-sm text-muted-foreground">{r.type}</p>
+                <p className="text-sm text-muted-foreground mb-6">{r.type}</p>
+                {r.img && (
+                  <div className="aspect-video rounded-lg overflow-hidden border border-border/50">
+                    <img 
+                      src={r.img} 
+                      alt={r.t} 
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                    />
+                  </div>
+                )}
               </div>
-              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-500 mt-6 relative z-10">
-                <div className="hairline mb-4" />
-                <p className="text-xs uppercase tracking-[0.18em] text-gold">Income potential</p>
-                <p className="text-sm text-foreground mt-1 mb-4">{r.income}</p>
-                <p className="text-xs uppercase tracking-[0.18em] text-gold">Example output</p>
-                <p className="text-sm text-muted-foreground mt-1">{r.out}</p>
+              <div className="mt-auto space-y-5">
+                <div className="hairline" />
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-gold mb-1">Income potential</p>
+                  <p className="text-sm text-foreground">{r.income}</p>
+                </div>
+                <div>
+                  <p className="text-[10px] uppercase tracking-[0.2em] text-gold mb-1">Example output</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{r.out}</p>
+                </div>
               </div>
             </article>
           ))}

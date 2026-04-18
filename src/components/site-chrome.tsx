@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/iconsbase-logo.png";
+const logo = "/iconsbase-logo.png";
 
 export function SiteNav() {
   return (
