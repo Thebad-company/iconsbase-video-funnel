@@ -290,7 +290,7 @@ export function ApplicationFormSection() {
   };
 
   return (
-    <section className="py-32 md:py-40 bg-navy text-navy-foreground">
+    <section id="application-form" className="py-32 md:py-40 bg-navy text-navy-foreground">
       <div className="container-editorial">
         <div className="grid lg:grid-cols-12 gap-16 items-start">
           {/* Left Column - Content */}

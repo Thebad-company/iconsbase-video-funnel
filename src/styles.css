@@ -1,27 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-
-@font-face {
-  font-family: "Playfair Display";
-  src: url("https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQ.woff2") format("woff2");
-  font-weight: 400 900;
-  font-display: swap;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Playfair Display";
-  src: url("https://fonts.gstatic.com/s/playfairdisplay/v37/nuFvD-vYSZviVYUb_rj3ij__anPXJzDgcLmjWBN2PKdFvXDXbtM.woff2") format("woff2");
-  font-weight: 400 900;
-  font-display: swap;
-  font-style: italic;
-}
-@font-face {
-  font-family: "Inter";
-  src: url("https://fonts.gstatic.com/s/inter/v19/UcCO3FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2") format("woff2");
-  font-weight: 100 900;
-  font-display: swap;
-}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -53,48 +33,48 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-display: "Poppins", system-ui, sans-serif;
+  --font-sans: "Poppins", system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.5rem;
-  /* Warm white background */
-  --background: oklch(0.974 0.005 85);
-  --foreground: oklch(0.18 0.005 85);
+  /* IconsBase Deep Navy #0A1628 */
+  --background: oklch(0.198 0.038 259.03);
+  --foreground: oklch(0.976 0.007 249.77);
 
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.005 85);
+  --card: oklch(0.25 0.03 260 / 0.5);
+  --card-foreground: oklch(0.98 0.005 85);
 
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.005 85);
+  --popover: oklch(0.2 0.04 260);
+  --popover-foreground: oklch(0.98 0.005 85);
 
-  /* Brand navy #012148 */
-  --primary: oklch(0.244 0.062 263);
-  --primary-foreground: oklch(0.98 0.005 85);
+  /* IconsBase Mustard Yellow #F5B800 */
+  --primary: oklch(0.793 0.158 84.14);
+  --primary-foreground: oklch(0.198 0.038 259.03);
 
-  --secondary: oklch(0.95 0.005 85);
-  --secondary-foreground: oklch(0.18 0.005 85);
+  --secondary: oklch(0.25 0.03 260);
+  --secondary-foreground: oklch(0.98 0.005 85);
 
-  --muted: oklch(0.94 0.005 85);
-  --muted-foreground: oklch(0.45 0.01 85);
+  --muted: oklch(0.28 0.03 260);
+  --muted-foreground: oklch(0.7 0.01 250);
 
-  --accent: oklch(0.93 0.01 85);
-  --accent-foreground: oklch(0.18 0.005 85);
+  --accent: oklch(0.793 0.158 84.14 / 0.15);
+  --accent-foreground: oklch(0.793 0.158 84.14);
 
-  /* Brand gold #FDB515 */
-  --gold: oklch(0.797 0.158 78);
-  --gold-foreground: oklch(0.18 0.005 85);
+  /* IconsBase Gold #FFD700 */
+  --gold: oklch(0.85 0.18 90);
+  --gold-foreground: oklch(0.198 0.038 259.03);
 
-  --navy: oklch(0.244 0.062 263);
+  --navy: oklch(0.198 0.038 259.03);
   --navy-foreground: oklch(0.98 0.005 85);
 
   --destructive: oklch(0.55 0.2 27);
   --destructive-foreground: oklch(0.98 0.005 85);
 
-  --border: oklch(0.9 0.005 85);
-  --input: oklch(0.9 0.005 85);
-  --ring: oklch(0.27 0.04 250);
+  --border: oklch(0.3 0.02 260);
+  --input: oklch(0.3 0.02 260);
+  --ring: oklch(0.793 0.158 84.14);
 }
 
 @layer base {
@@ -166,5 +146,27 @@
   }
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
+  }
+
+  .light-section {
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.198 0.038 259.03);
+    --muted: oklch(0.94 0.005 85);
+    --muted-foreground: oklch(0.45 0.01 85);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.198 0.038 259.03);
+    --border: oklch(0.9 0.005 85);
+    --accent: oklch(0.198 0.038 259.03 / 0.05);
+    --accent-foreground: oklch(0.198 0.038 259.03);
+    
+    background-color: var(--background);
+    color: var(--foreground);
+  }
+
+  .light-section h1, 
+  .light-section h2, 
+  .light-section h3, 
+  .light-section h4 {
+    color: var(--foreground);
   }
 }

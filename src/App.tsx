@@ -14,11 +14,11 @@ import {
   SkillStack,
   WorkEnvironment,
   HorizontalTransformation,
-  OutputSystem,
-  EarningPath,
+  CareerOutcomes,
   Proof,
   Testimonials,
   ProgramTimeline,
+  Mentors,
   MeritFilter,
   WhoFor,
   ApplicationFormSection,
@@ -62,13 +62,15 @@ function App() {
         <HorizontalTransformation />
         
         {/* 9. OUTCOMES - What they get */}
-        <OutputSystem />
-        <EarningPath />
+        <CareerOutcomes />
         
         {/* 10. PROGRAM DETAILS - Structure and timeline */}
         <ProgramTimeline />
         
-        {/* 11. PROOF - Validate with data and testimonials */}
+        {/* 11. MENTORS - Learn from experts */}
+        <Mentors />
+        
+        {/* 12. PROOF - Validate with data and testimonials */}
         <Proof />
         <Testimonials />
         

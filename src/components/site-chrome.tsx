@@ -2,12 +2,12 @@ const logo = "/iconsbase-logo.png";
 
 export function SiteNav() {
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/60">
-      <div className="container-editorial flex items-center justify-between h-16">
+    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/90 border-b border-zinc-200">
+      <div className="container-editorial flex items-center justify-between h-20">
         <a href="/" className="flex items-center gap-2">
-          <img src={logo} alt="IconsBase — The AI Institute" className="h-12 w-auto" width={240} height={72} />
+          <img src={logo} alt="IconsBase — The AI Institute" className="h-14 w-auto" width={280} height={84} />
         </a>
-        <a href="#apply" className="text-xs uppercase tracking-[0.2em] px-4 py-2.5 bg-navy text-navy-foreground hover:bg-navy/90 transition-colors">
+        <a href="#application-form" className="text-xs uppercase tracking-[0.2em] px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
           Apply
         </a>
       </div>

@@ -26,7 +26,6 @@ export { ApplicationFormSection };
 /* --------------------------------- HERO --------------------------------- */
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
-  const [isFormOpen, setIsFormOpen] = useState(false);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -64,13 +63,13 @@ export function Hero() {
               A structured system to turn your editing skills into real income — with paid internships and job placement guaranteed.
             </p>
             <div data-hero-cta className="mt-10 flex items-center gap-6">
-              <button
-                onClick={() => setIsFormOpen(true)}
-                className="group inline-flex items-center gap-3 bg-navy text-navy-foreground px-7 py-4 text-sm tracking-[0.15em] uppercase hover:bg-navy/90 transition-colors"
+              <a
+                href="#application-form"
+                className="group inline-flex items-center gap-3 bg-primary text-primary-foreground px-7 py-4 text-sm tracking-[0.15em] uppercase hover:bg-primary/90 transition-colors"
               >
                 Apply for the Program
-                <span className="w-4 h-px bg-gold transition-all duration-300 group-hover:w-8" />
-              </button>
+                <span className="w-4 h-px bg-primary-foreground transition-all duration-300 group-hover:w-8" />
+              </a>
               <a href="#system" className="text-sm tracking-[0.15em] uppercase text-muted-foreground hover:text-foreground transition-colors">
                 How it works
               </a>
@@ -90,7 +89,6 @@ export function Hero() {
           </div>
         </div>
       </section>
-      <LeadCaptureForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
     </>
   );
 }
@@ -99,7 +97,7 @@ export function Hero() {
 export function TrustBar() {
   const items = ["Agency-led training", "Paid internship", "Job placement", "Real client work"];
   return (
-    <section className="border-y border-border bg-card">
+    <section className="border-y border-border light-section">
       <div className="container-editorial grid grid-cols-2 md:grid-cols-4">
         {items.map((t, i) => (
           <div key={t} className={`py-6 px-4 text-center ${i > 0 ? "md:border-l border-border" : ""} ${i % 2 === 1 ? "border-l border-border md:border-l" : ""} ${i >= 2 ? "border-t md:border-t-0 border-border" : ""}`}>
@@ -113,13 +111,12 @@ export function TrustBar() {
 
 /* --------------------------- CLIENTS SHOWCASE ---------------------------- */
 const clients = [
-  { name: "TechVision Studios", subscribers: "245k Subscribers", icon: "/client-logo-1.png" },
-  { name: "Creative Minds", subscribers: "180k Subscribers", icon: "/avatar-1.png" },
-  { name: "Digital Pulse", subscribers: "520k Subscribers", icon: "/avatar-2.png" },
-  { name: "Content Creators Co", subscribers: "95k Subscribers", icon: "/avatar-3.png" },
-  { name: "Media Masters", subscribers: "310k Subscribers", icon: "/avatar-4.png" },
-  { name: "Studio Nexus", subscribers: "420k Subscribers", icon: "/avatar-5.png" },
-  { name: "Pixel Perfect", subscribers: "155k Subscribers", icon: "/avatar-1.png" },
+  { name: "Montra", subscribers: "Leading Electric Mobility", icon: "/clients/montra.svg" },
+  { name: "Oxxy", subscribers: "Healthcare Network", icon: "/clients/oxxy_logo.png" },
+  { name: "Rockman", subscribers: "Industries & Manufacturing", icon: "/clients/rockman.png" },
+  { name: "Wishtune", subscribers: "Social Audio Platform", icon: "/clients/wishtune.png" },
+  { name: "Montra", subscribers: "Leading Electric Mobility", icon: "/clients/montra.svg" },
+  { name: "Oxxy", subscribers: "Healthcare Network", icon: "/clients/oxxy_logo.png" },
 ];
 
 export function ClientsShowcase() {
@@ -129,38 +126,38 @@ export function ClientsShowcase() {
         <h2 className="text-center font-display text-3xl md:text-4xl mb-12" data-reveal>
           Clients we have worked with
         </h2>
-        
+
         {/* Scrolling Container */}
         <div className="relative" data-reveal>
           {/* Gradient Overlays */}
           <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-navy to-transparent z-10 pointer-events-none" />
           <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-navy to-transparent z-10 pointer-events-none" />
-          
+
           {/* Scrollable Content */}
-          <div className="flex gap-8 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory scroll-smooth">
+          <div className="flex overflow-x-auto pb-12 scrollbar-hide snap-x snap-mandatory scroll-smooth items-center">
             {clients.map((client, i) => (
               <div
                 key={i}
-                className="flex-shrink-0 snap-center flex flex-col items-center text-center min-w-[200px] group"
+                className="flex-shrink-0 snap-center flex flex-col items-center text-center w-1/2 md:w-1/4 group"
               >
-                {/* Logo Circle */}
-                <div className="w-32 h-32 md:w-40 md:h-40 rounded-full bg-navy-foreground/10 backdrop-blur-sm border-2 border-navy-foreground/20 flex items-center justify-center mb-4 group-hover:scale-105 group-hover:border-gold/50 transition-all duration-300 overflow-hidden">
+                {/* Logo Container */}
+                <div className="h-16 w-full flex items-center justify-center mb-6 group-hover:scale-105 transition-all duration-300">
                   {client.icon ? (
                     <img
                       src={client.icon}
                       alt={client.name}
-                      className="w-full h-full object-cover p-2"
+                      className={`max-h-full object-contain transition-all duration-300 ${
+                        client.icon.includes("wishtune") 
+                          ? "max-w-[180px] scale-[1.8] opacity-100" 
+                          : "max-w-[120px] lg:max-w-[140px] opacity-80 group-hover:opacity-100"
+                      }`}
                     />
                   ) : (
-                    <span className="text-4xl md:text-5xl font-display text-navy-foreground/80">
+                    <span className="text-3xl font-display text-navy-foreground/80">
                       {client.name.charAt(0)}
                     </span>
                   )}
                 </div>
-                
-                {/* Client Info */}
-                <h3 className="font-display text-lg mb-1">{client.name}</h3>
-                <p className="text-sm text-navy-foreground/70">{client.subscribers}</p>
               </div>
             ))}
           </div>
@@ -217,7 +214,7 @@ const portfolioWork = [
 
 export function CheckOutOurWork() {
   return (
-    <section className="py-20 md:py-28 bg-gradient-to-b from-background to-muted/30">
+    <section className="py-20 md:py-28 light-section">
       <div className="container-editorial">
         {/* Header */}
         <div className="text-center mb-12" data-reveal>
@@ -277,7 +274,7 @@ export function CheckOutOurWork() {
                       </svg>
                     </div>
                   )}
-                  
+
                   {/* Play Button Overlay */}
                   <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
                     <div className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
@@ -304,7 +301,7 @@ export function CheckOutOurWork() {
                       </div>
                     )}
                   </div>
-                  
+
                   {/* Creator Details */}
                   <div className="flex-1 min-w-0">
                     <h3 className="font-display text-lg truncate">{work.creator}</h3>
@@ -359,7 +356,7 @@ export function Opportunity() {
     { v: "$2.4B", label: "freelance editing market" },
   ];
   return (
-    <section className="py-24 bg-card border-y border-border">
+    <section className="py-24 border-y border-border light-section">
       <div className="container-editorial">
         <div className="max-w-2xl mb-16" data-reveal>
           <span className="eyebrow">The Market</span>
@@ -370,7 +367,7 @@ export function Opportunity() {
         <div className="grid md:grid-cols-3 gap-px bg-border">
           {stats.map((s) => (
             <div key={s.v} data-reveal className="bg-card p-10">
-              <div className="font-display text-5xl md:text-6xl text-navy">{s.v}</div>
+              <div className="font-display text-5xl md:text-6xl text-primary">{s.v}</div>
               <p className="mt-4 text-sm text-muted-foreground max-w-[200px]">{s.label}</p>
             </div>
           ))}
@@ -442,10 +439,10 @@ export function RolesGrid() {
                 <p className="text-sm text-muted-foreground mb-6">{r.type}</p>
                 {r.img && (
                   <div className="aspect-video rounded-lg overflow-hidden border border-border/50">
-                    <img 
-                      src={r.img} 
-                      alt={r.t} 
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                    <img
+                      src={r.img}
+                      alt={r.t}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   </div>
                 )}
@@ -472,7 +469,7 @@ export function RolesGrid() {
 /* ----------------------------- PROBLEM VS SYSTEM ------------------------- */
 export function ProblemSystem() {
   return (
-    <section className="py-28 bg-card border-y border-border">
+    <section className="py-28 border-y border-border light-section">
       <div className="container-editorial grid md:grid-cols-2 gap-px bg-border border border-border">
         <div className="bg-card p-10 md:p-14" data-reveal>
           <span className="eyebrow text-muted-foreground">The Old Way</span>
@@ -564,7 +561,7 @@ export function SkillStack() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-28 bg-card border-y border-border">
+    <section className="py-28 border-y border-border light-section">
       <div className="container-editorial">
         <div className="max-w-2xl mb-16" data-reveal>
           <span className="eyebrow">08 · Skill Stack</span>
@@ -581,7 +578,7 @@ export function SkillStack() {
             >
               {/* Background Image on Hover */}
               {s.img && (
-                <div 
+                <div
                   className={`absolute inset-0 transition-opacity duration-500 ${hoveredIndex === i ? 'opacity-10' : 'opacity-0'}`}
                   style={{
                     backgroundImage: `url(${s.img})`,
@@ -591,7 +588,7 @@ export function SkillStack() {
                   }}
                 />
               )}
-              
+
               {/* Content */}
               <span className="col-span-1 text-xs tabular-nums text-muted-foreground tracking-widest relative z-10">0{i + 1}</span>
               <span className="col-span-10 md:col-span-4 font-display text-2xl relative z-10">{s.t}</span>
@@ -713,7 +710,7 @@ export function HorizontalTransformation() {
   }, []);
 
   return (
-    <section ref={wrap} className="bg-card border-y border-border overflow-hidden">
+    <section ref={wrap} className="border-y border-border overflow-hidden light-section">
       <div ref={track} className="flex items-center h-screen will-change-transform">
         <div className="shrink-0 w-screen px-8 md:px-20 flex flex-col justify-center">
           <span className="eyebrow">10 · Transformation</span>
@@ -730,14 +727,14 @@ export function HorizontalTransformation() {
             {/* Image at the top */}
             {p.img && (
               <div className="w-full h-[50%] overflow-hidden">
-                <img 
-                  src={p.img} 
+                <img
+                  src={p.img}
                   alt={p.t}
                   className="w-full h-full object-cover"
                 />
               </div>
             )}
-            
+
             {/* Text content at the bottom */}
             <div className="p-10 md:p-14">
               <div className={`text-xs tracking-[0.3em] mb-6 ${p.divider ? "text-gold" : "text-muted-foreground"}`}>{p.n}</div>
@@ -752,20 +749,23 @@ export function HorizontalTransformation() {
   );
 }
 
-/* ------------------------------- OUTPUT SYSTEM --------------------------- */
-export function OutputSystem() {
+/* ------------------------------- CAREER OUTCOMES ------------------------- */
+export function CareerOutcomes() {
   const items = [
     { t: "Portfolio", d: "5–8 client-grade pieces ready to send." },
-    { t: "Paid Internship", d: "3-month paid position with partner agencies." },
-    { t: "Job Placement", d: "Direct connections to hiring agencies & creators." },
+    { t: "Paid Internship", d: "3-month paid position post-graduation." },
+    { t: "Agency Placement", d: "Direct hiring with partner agencies." },
     { t: "Full-time Role", d: "Agency or in-house positions with our partners." },
   ];
   return (
-    <section className="py-28">
+    <section className="py-28 border-y border-border">
       <div className="container-editorial">
         <div className="mb-16 max-w-2xl" data-reveal>
-          <span className="eyebrow">11 · Output</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl">What you leave with.</h2>
+          <span className="eyebrow">11 · Career Outcomes</span>
+          <h2 className="mt-4 font-display text-4xl md:text-5xl leading-tight">From training to full-time employment in 90 days.</h2>
+          <p className="mt-6 text-muted-foreground">
+            Every graduate gets access to our paid internship program and job placement network. We support you until you're earning.
+          </p>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-border border border-border">
           {items.map((x, i) => (
@@ -781,37 +781,6 @@ export function OutputSystem() {
   );
 }
 
-/* ------------------------------ EARNING PATH ----------------------------- */
-export function EarningPath() {
-  const paths = [
-    { t: "Paid Internship", d: "3-month paid position post-graduation." },
-    { t: "Agency Placement", d: "Direct hiring with partner agencies." },
-    { t: "In-house Roles", d: "Full-time positions with brands & studios." },
-    { t: "Creator Teams", d: "Embedded roles with YouTubers & podcasters." },
-  ];
-  return (
-    <section className="py-28 bg-card border-y border-border">
-      <div className="container-editorial">
-        <div className="mb-16" data-reveal>
-          <span className="eyebrow">12 · Career Path</span>
-          <h2 className="mt-4 font-display text-4xl md:text-5xl max-w-2xl">From training to full-time employment in 90 days.</h2>
-          <p className="mt-6 text-muted-foreground max-w-xl">
-            Every graduate gets access to our paid internship program and job placement network. We connect you directly to full-time opportunities.
-          </p>
-        </div>
-        <div className="grid md:grid-cols-4 border-t border-border" data-reveal>
-          {paths.map((p, i) => (
-            <div key={p.t} className={`py-10 ${i > 0 ? "md:border-l border-border" : ""} md:px-8`}>
-              <div className="font-display text-5xl text-gold mb-6">0{i + 1}</div>
-              <h3 className="font-display text-2xl mb-2">{p.t}</h3>
-              <p className="text-sm text-muted-foreground">{p.d}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
 
 /* ---------------------------------- PROOF -------------------------------- */
 export function Proof() {
@@ -841,7 +810,7 @@ export function Proof() {
             { metric: "92%", label: "Internship conversion", detail: "Interns who transition to full-time employment." },
           ].map((p) => (
             <div key={p.metric} data-reveal className="bg-card border border-border p-10 lift">
-              <div className="font-display text-5xl md:text-6xl text-navy">{p.metric}</div>
+              <div className="font-display text-5xl md:text-6xl text-primary">{p.metric}</div>
               <p className="mt-4 font-display text-lg">{p.label}</p>
               <p className="mt-2 text-sm text-muted-foreground">{p.detail}</p>
             </div>
@@ -900,7 +869,7 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section className="py-28 md:py-36 bg-background">
+    <section className="py-28 md:py-36 light-section">
       <div className="container-editorial">
         <div className="mb-16 text-center max-w-2xl mx-auto" data-reveal>
           <span className="eyebrow">Student Success Stories</span>
@@ -1008,6 +977,61 @@ export function ProgramTimeline() {
   );
 }
 
+/* -------------------------------- MENTORS -------------------------------- */
+const mentors = [
+  {
+    name: "Vikram Singh",
+    role: "Lead Editor & Storyteller",
+    exp: "8+ Years Experience",
+    bio: "Ex-senior editor at top digital agencies. Vikram has shipped over 400+ long-form videos for million-subscriber creators.",
+    image: "mentor_1_expert", // Placeholder for the actual path generated
+  },
+  {
+    name: "Neetu Sharma",
+    role: "Short-form Growth Expert",
+    exp: "5+ Years Experience",
+    bio: "Specialist in high-retention vertical video. Neetu has managed editing workflows for viral brands across India.",
+    image: "mentor_2_expert", // Placeholder for the actual path generated
+  }
+];
+
+export function Mentors() {
+  return (
+    <section className="py-28 md:py-40 light-section">
+      <div className="container-editorial">
+        <div className="mb-20 text-center max-w-3xl mx-auto" data-reveal>
+          <span className="eyebrow">Expert Guidance</span>
+          <h2 className="mt-4 font-display text-4xl md:text-6xl text-balance">
+            Learn from the masters <br /><em className="text-muted-foreground">who actually ship.</em>
+          </h2>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-12 lg:gap-20">
+          {mentors.map((m, i) => (
+            <div key={m.name} className="group" data-reveal>
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-8 border border-border shadow-lg">
+                <img
+                  src={i === 0 ? "mentor_1_expert_1776676094261.png" : "mentor_2_expert_1776676109520.png"}
+                  alt={m.name}
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="text-xs uppercase tracking-widest text-gold font-bold">{m.exp}</span>
+                <span className="h-px flex-1 bg-border" />
+              </div>
+              <h3 className="font-display text-3xl mb-2">{m.name}</h3>
+              <p className="text-sm font-medium text-foreground/80 mb-4">{m.role}</p>
+              <p className="text-muted-foreground leading-relaxed text-pretty">{m.bio}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ------------------------------- MERIT FILTER ---------------------------- */
 export function MeritFilter() {
   return (
@@ -1048,7 +1072,7 @@ export function WhoFor() {
     { t: "Students", d: "Building a career foundation. Treat this like a craft." },
   ];
   return (
-    <section className="py-28">
+    <section className="py-28 light-section">
       <div className="container-editorial">
         <div className="mb-16" data-reveal>
           <span className="eyebrow">16 · Who It's For</span>
@@ -1069,11 +1093,9 @@ export function WhoFor() {
 
 /* -------------------------------- FINAL CTA ------------------------------ */
 export function FinalCTA() {
-  const [isFormOpen, setIsFormOpen] = useState(false);
-
   return (
     <>
-      <section id="apply" className="py-32 md:py-44 bg-card border-y border-border">
+      <section className="py-32 md:py-44 bg-card border-y border-border">
         <div className="container-editorial text-center max-w-4xl">
           <div className="flex justify-center mb-8" data-reveal>
             <span className="gold-rule" />
@@ -1086,18 +1108,17 @@ export function FinalCTA() {
             Every graduate gets access to our 3-month paid internship program and direct connections to hiring agencies. We don't just train you — we place you.
           </p>
           <div data-reveal className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <button
-              onClick={() => setIsFormOpen(true)}
-              className="group inline-flex items-center gap-3 bg-navy text-navy-foreground px-10 py-5 text-sm tracking-[0.18em] uppercase hover:bg-navy/90 transition-colors"
+            <a
+              href="#application-form"
+              className="group inline-flex items-center gap-3 bg-primary text-primary-foreground px-10 py-5 text-sm tracking-[0.18em] uppercase hover:bg-primary/90 transition-colors"
             >
               Apply Now
               <span className="w-4 h-px bg-gold transition-all duration-300 group-hover:w-8" />
-            </button>
+            </a>
             <p className="text-xs tracking-[0.18em] uppercase text-muted-foreground">Cohort 07 · Closes in 12 days</p>
           </div>
         </div>
       </section>
-      <LeadCaptureForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
     </>
   );
 }
