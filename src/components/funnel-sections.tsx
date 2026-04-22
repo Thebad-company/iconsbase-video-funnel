@@ -2,6 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LeadCaptureForm, ApplicationFormSection } from "./lead-capture-form";
+import { Play, Pause } from "lucide-react";
+
+// Import videos
+import boxofficeVid from "@/assets/video/boxoffice.mp4";
+import montra1Vid from "@/assets/video/montra1.mp4";
+import montra2Vid from "@/assets/video/montra2.mp4";
+import montra3Vid from "@/assets/video/montra3.mp4";
+import montra4Vid from "@/assets/video/montra4.mp4";
+import rockman1Vid from "@/assets/video/rockman1.mp4";
+import rockman3Vid from "@/assets/video/rockman3.mp4";
+import tikovaVid from "@/assets/video/tikova.mp4";
 
 // Asset paths (from public directory)
 const heroEditingScreen = "/hero-editing-screen.png";
@@ -217,156 +228,315 @@ export function ClientsShowcase() {
 
 
 /* --------------------------- CHECK OUT OUR WORK -------------------------- */
-const portfolioWork = [
-  {
-    thumbnail: portfolioLongform,
-    creator: "Abhishek",
-    avatar: avatar1,
-    subscribers: "245k Subscribers",
-  },
-  {
-    thumbnail: portfolioShortform,
-    creator: "Meesh & Dee",
-    avatar: avatar2,
-    subscribers: "109k Subscribers",
-  },
-  {
-    thumbnail: portfolioAds,
-    creator: "Reel Rejects",
-    avatar: avatar3,
-    subscribers: "1.45M Subscribers",
-  },
-  {
-    thumbnail: portfolioPodcast,
-    creator: "Content Creator",
-    avatar: avatar4,
-    subscribers: "250k Subscribers",
-  },
-  {
-    thumbnail: portfolioVlog,
-    creator: "Another Creator",
-    avatar: avatar5,
-    subscribers: "180k Subscribers",
-  },
+const landscapeWork = [
+  { url: montra1Vid, title: "Montra Electric", brand: "Montra Electric", logo: "/clients/montra.svg" },
+  { url: montra2Vid, title: "Montra Electric", brand: "Montra Electric", logo: "/clients/montra.svg" },
+  { url: montra4Vid, title: "Montra Electric", brand: "Montra Electric", logo: "/clients/montra.svg" },
+  { url: rockman1Vid, title: "Rockman", brand: "Rockman", logo: "/clients/rockman.png" },
+  { url: rockman3Vid, title: "Rockman", brand: "Rockman", logo: "/clients/rockman.png" },
 ];
 
-export function CheckOutOurWork() {
+const verticalWork = [
+  { url: tikovaVid, title: "Tikova", brand: "Tikova" },
+  { url: boxofficeVid, title: "BoxOffice Space", brand: "BoxOffice Space" },
+  { url: montra3Vid, title: "Montra Electric", brand: "Montra Electric", logo: "/clients/montra.svg" },
+];
+
+function VideoCard({ 
+  url, 
+  title, 
+  brand, 
+  logo, 
+  aspect = "video",
+  onClick 
+}: { 
+  url: string, 
+  title: string, 
+  brand: string, 
+  logo?: string, 
+  aspect?: string,
+  onClick: () => void
+}) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const handleMouseEnter = () => {
+    setIsHovered(true);
+    videoRef.current?.play().then(() => setIsPlaying(true)).catch(() => {});
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    videoRef.current?.pause();
+    setIsPlaying(false);
+    if (videoRef.current) videoRef.current.currentTime = 0;
+  };
+
   return (
-    <section className="py-20 md:py-28 light-section">
+    <div 
+      className="flex-shrink-0 snap-center group cursor-pointer"
+      style={{ width: aspect === "video" ? "clamp(280px, 40vw, 400px)" : "clamp(180px, 25vw, 280px)" }}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      onClick={onClick}
+    >
+      <div className={`relative aspect-${aspect} rounded-xl overflow-hidden mb-5 bg-muted border border-border/50 group-hover:border-primary/50 transition-all duration-700 shadow-sm group-hover:shadow-xl group-hover:shadow-primary/5`}>
+        <video
+          ref={videoRef}
+          src={url}
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+        />
+        
+        {/* Play Button Overlay */}
+        <div className={`absolute inset-0 flex items-center justify-center bg-black/10 backdrop-blur-[2px] transition-opacity duration-500 ${isHovered && isPlaying ? "opacity-0" : "opacity-100"}`}>
+          <div className="w-14 h-14 rounded-full bg-white/90 backdrop-blur-md flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform duration-500">
+            {isPlaying ? (
+              <Pause className="w-6 h-6 text-navy" />
+            ) : (
+              <Play className="w-6 h-6 text-navy ml-1" />
+            )}
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-center gap-4">
+        <div className="w-12 h-12 rounded-full overflow-hidden bg-white/5 border border-border/50 flex items-center justify-center shrink-0 group-hover:border-primary/30 transition-colors">
+          {logo ? (
+            <img src={logo} alt={brand} className={`w-7 h-7 object-contain ${brand === 'Rockman' ? 'brightness-0' : ''}`} />
+          ) : (
+            <div className="w-full h-full flex items-center justify-center bg-primary/10 text-primary font-display text-base">
+              {brand.charAt(0)}
+            </div>
+          )}
+        </div>
+        <div className="flex-1 min-w-0">
+          <h3 className="font-display text-base md:text-lg truncate group-hover:text-primary transition-colors duration-500">{title}</h3>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground group-hover:text-foreground transition-colors">Production</p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VideoModal({ video, onClose }: { video: { url: string, title: string, brand: string }, onClose: () => void }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(true);
+
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleEsc);
+    };
+  }, [onClose]);
+
+  const togglePlay = () => {
+    if (videoRef.current) {
+      if (videoRef.current.paused) {
+        videoRef.current.play();
+        setIsPlaying(true);
+      } else {
+        videoRef.current.pause();
+        setIsPlaying(false);
+      }
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl transition-all duration-500 animate-in fade-in">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-primary/10 blur-[150px] -z-10 rounded-full" />
+      
+      {/* Close Button */}
+      <button 
+        onClick={onClose}
+        className="absolute top-8 right-8 w-12 h-12 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all group z-10"
+      >
+        <span className="w-6 h-px bg-white rotate-45 absolute" />
+        <span className="w-6 h-px bg-white -rotate-45 absolute" />
+      </button>
+
+      {/* Video Container */}
+      <div className="container-editorial w-full max-w-5xl">
+        <div className="relative group">
+          <div 
+            className="glass-card p-2 rounded-2xl overflow-hidden animate-in zoom-in-95 duration-500 shadow-2xl shadow-primary/10 relative cursor-pointer"
+            onClick={togglePlay}
+          >
+            <video 
+              ref={videoRef}
+              src={video.url} 
+              controls 
+              autoPlay 
+              onPlay={() => setIsPlaying(true)}
+              onPause={() => setIsPlaying(false)}
+              className="w-full h-auto max-h-[80vh] rounded-xl"
+            />
+            
+            {/* Custom Play Overlay (visible when paused) */}
+            <div className={`absolute inset-0 flex items-center justify-center pointer-events-none transition-opacity duration-300 ${isPlaying ? "opacity-0" : "opacity-100"}`}>
+              <div className="w-20 h-20 rounded-full bg-primary/20 backdrop-blur-md border border-primary/30 flex items-center justify-center shadow-2xl shadow-primary/20">
+                <Play className="w-10 h-10 text-primary fill-primary ml-1" />
+              </div>
+            </div>
+          </div>
+          
+          {/* Metadata */}
+          <div className="mt-8 flex items-center justify-between animate-in slide-in-from-bottom-5 duration-700">
+            <div>
+              <h2 className="font-display text-2xl md:text-3xl text-white mb-2">{video.title}</h2>
+              <p className="text-sm text-primary uppercase tracking-[0.2em] font-semibold">Production</p>
+            </div>
+            <a 
+              href="#application-form" 
+              onClick={onClose}
+              className="px-8 py-4 bg-primary text-primary-foreground font-semibold text-xs uppercase tracking-widest hover:bg-primary/90 transition-all rounded-sm hidden md:block"
+            >
+              Learn the system
+            </a>
+          </div>
+        </div>
+      </div>
+      
+      {/* Click outside to close */}
+      <div className="absolute inset-0 -z-1" onClick={onClose} />
+    </div>
+  );
+}
+
+export function CheckOutOurWork() {
+  const [selectedVideo, setSelectedVideo] = useState<{ url: string, title: string, brand: string } | null>(null);
+  const scrollRef1 = useRef<HTMLDivElement>(null);
+  const scrollRef2 = useRef<HTMLDivElement>(null);
+
+  const scroll = (ref: React.RefObject<HTMLDivElement>, direction: 'left' | 'right') => {
+    if (ref.current) {
+      const scrollAmount = direction === 'left' ? -400 : 400;
+      ref.current.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    }
+  };
+
+  return (
+    <section className="py-24 md:py-32 light-section overflow-hidden">
       <div className="container-editorial">
         {/* Header */}
-        <div className="text-center mb-12" data-reveal>
-          <h2 className="font-display text-4xl md:text-6xl">
+        <div className="mb-20" data-reveal>
+          <span className="eyebrow mb-6">Our Portfolio</span>
+          <h2 className="font-display text-4xl md:text-6xl tracking-tight">
             Check out our{" "}
             <span className="relative inline-block">
               work
-              <span className="absolute bottom-1 left-0 right-0 h-3 bg-gold/30 -z-10" />
+              <span className="absolute bottom-2 left-0 right-0 h-4 bg-gold/20 -z-10" />
             </span>
           </h2>
+          <p className="mt-6 text-muted-foreground max-w-xl text-lg">
+            From high-end commercial brand films to viral short-form content. 
+            We ship editing that drives results.
+          </p>
         </div>
 
-        {/* Scrolling Container */}
-        <div className="relative" data-reveal>
-          {/* Gradient Overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none hidden md:block" />
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none hidden md:block" />
-
-          {/* Navigation Arrows */}
-          <button
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-border shadow-lg flex items-center justify-center hover:bg-white transition-all hover:scale-110 hidden md:flex"
-            aria-label="Previous"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-            </svg>
-          </button>
-          <button
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-12 h-12 rounded-full bg-white/90 backdrop-blur-sm border border-border shadow-lg flex items-center justify-center hover:bg-white transition-all hover:scale-110 hidden md:flex"
-            aria-label="Next"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
-
-          {/* Scrollable Content */}
-          <div className="flex gap-6 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory scroll-smooth px-4 md:px-0">
-            {portfolioWork.map((work, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 snap-center group cursor-pointer"
-                style={{ width: "clamp(280px, 40vw, 400px)" }}
+        {/* Group 1: Landscape */}
+        <div className="mb-24" data-reveal>
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <h3 className="font-display text-2xl md:text-3xl">Commercials & Brand Films</h3>
+              <p className="text-sm text-muted-foreground mt-2">16:9 Cinematic Storytelling</p>
+            </div>
+            <div className="hidden md:flex gap-3">
+              <button 
+                onClick={() => scroll(scrollRef1, 'left')}
+                className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-navy hover:text-white transition-all"
               >
-                {/* Video Thumbnail */}
-                <div className="relative aspect-video rounded-lg overflow-hidden mb-4 bg-muted">
-                  {work.thumbnail ? (
-                    <img
-                      src={work.thumbnail}
-                      alt={`Work for ${work.creator}`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-navy/20 to-gold/20">
-                      <svg className="w-16 h-16 text-muted-foreground/40" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
-                      </svg>
-                    </div>
-                  )}
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button 
+                onClick={() => scroll(scrollRef1, 'right')}
+                className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-navy hover:text-white transition-all"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
-                  {/* Play Button Overlay */}
-                  <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-                    <div className="w-16 h-16 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center">
-                      <svg className="w-8 h-8 text-navy ml-1" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" />
-                      </svg>
-                    </div>
-                  </div>
-                </div>
+          <div 
+            ref={scrollRef1}
+            className="flex gap-8 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory scroll-smooth"
+          >
+            {landscapeWork.map((work, i) => (
+              <VideoCard key={i} {...work} onClick={() => setSelectedVideo(work)} aspect="video" />
+            ))}
+          </div>
+        </div>
 
-                {/* Creator Info */}
-                <div className="flex items-center gap-3">
-                  {/* Avatar */}
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-muted border-2 border-border shrink-0">
-                    {work.avatar ? (
-                      <img
-                        src={work.avatar}
-                        alt={work.creator}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-navy to-gold text-white font-display text-lg">
-                        {work.creator.charAt(0)}
-                      </div>
-                    )}
-                  </div>
+        {/* Group 2: Vertical */}
+        <div data-reveal>
+          <div className="flex items-center justify-between mb-10">
+            <div>
+              <h3 className="font-display text-2xl md:text-3xl">Short-form Exports</h3>
+              <p className="text-sm text-muted-foreground mt-2">9:16 High-Retention Reels</p>
+            </div>
+            <div className="hidden md:flex gap-3">
+              <button 
+                onClick={() => scroll(scrollRef2, 'left')}
+                className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-navy hover:text-white transition-all"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button 
+                onClick={() => scroll(scrollRef2, 'right')}
+                className="w-12 h-12 rounded-full border border-border flex items-center justify-center hover:bg-navy hover:text-white transition-all"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
 
-                  {/* Creator Details */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-display text-lg truncate">{work.creator}</h3>
-                    <p className="text-sm text-muted-foreground">{work.subscribers}</p>
-                  </div>
-                </div>
-              </div>
+          <div 
+            ref={scrollRef2}
+            className="flex gap-8 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory scroll-smooth"
+          >
+            {verticalWork.map((work, i) => (
+              <VideoCard key={i} {...work} onClick={() => setSelectedVideo(work)} aspect="[9/16]" />
             ))}
           </div>
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-12" data-reveal>
-          <p className="text-sm text-muted-foreground mb-4">
-            See more of our work on YouTube
-          </p>
+        <div className="text-center mt-20" data-reveal>
+          <div className="hairline mb-10 opacity-10" />
           <a
-            href="#"
-            className="inline-flex items-center gap-2 text-sm tracking-[0.15em] uppercase text-foreground hover:text-gold transition-colors"
+            href="#application-form"
+            className="inline-flex items-center gap-4 text-xs font-semibold tracking-[0.3em] uppercase text-foreground hover:text-primary transition-all group"
           >
-            View Full Portfolio
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
+            Start your project with us
+            <span className="w-8 h-px bg-primary transition-all group-hover:w-16" />
           </a>
         </div>
       </div>
+
+      {/* Portal-like Modal */}
+      {selectedVideo && (
+        <VideoModal 
+          video={selectedVideo} 
+          onClose={() => setSelectedVideo(null)} 
+        />
+      )}
     </section>
   );
 }
