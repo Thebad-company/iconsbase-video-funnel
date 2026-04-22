@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { LeadCaptureForm, ApplicationFormSection } from "./lead-capture-form";
@@ -237,8 +237,6 @@ const landscapeWork = [
 ];
 
 const verticalWork = [
-  { url: tikovaVid, title: "Tikova", brand: "Tikova" },
-  { url: boxofficeVid, title: "BoxOffice Space", brand: "BoxOffice Space" },
   { url: montra3Vid, title: "Montra Electric", brand: "Montra Electric", logo: "/clients/montra.svg" },
 ];
 
@@ -417,6 +415,15 @@ export function CheckOutOurWork() {
   const scrollRef1 = useRef<HTMLDivElement>(null);
   const scrollRef2 = useRef<HTMLDivElement>(null);
 
+  // Shuffling logic
+  const shuffledLandscape = useMemo(() => {
+    return [...landscapeWork].sort(() => Math.random() - 0.5);
+  }, []);
+
+  const shuffledVertical = useMemo(() => {
+    return [...verticalWork].sort(() => Math.random() - 0.5);
+  }, []);
+
   const scroll = (ref: React.RefObject<HTMLDivElement>, direction: 'left' | 'right') => {
     if (ref.current) {
       const scrollAmount = direction === 'left' ? -400 : 400;
@@ -474,7 +481,7 @@ export function CheckOutOurWork() {
             ref={scrollRef1}
             className="flex gap-8 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory scroll-smooth"
           >
-            {landscapeWork.map((work, i) => (
+            {shuffledLandscape.map((work, i) => (
               <VideoCard key={i} {...work} onClick={() => setSelectedVideo(work)} aspect="video" />
             ))}
           </div>
@@ -511,7 +518,7 @@ export function CheckOutOurWork() {
             ref={scrollRef2}
             className="flex gap-8 overflow-x-auto pb-8 scrollbar-hide snap-x snap-mandatory scroll-smooth"
           >
-            {verticalWork.map((work, i) => (
+            {shuffledVertical.map((work, i) => (
               <VideoCard key={i} {...work} onClick={() => setSelectedVideo(work)} aspect="[9/16]" />
             ))}
           </div>
