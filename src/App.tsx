@@ -1,6 +1,7 @@
 import { useLenis } from "@/lib/useLenis";
 import { useReveal } from "@/lib/useReveal";
 import { SiteNav, SiteFooter } from "@/components/site-chrome";
+import { CustomCursor } from "@/components/CustomCursor";
 import {
   Hero,
   TrustBar,
@@ -30,9 +31,16 @@ function App() {
   useReveal();
   
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary selection:text-primary-foreground">
+      {/* Premium Overlays */}
+      <CustomCursor />
+      <div className="grain-overlay" />
+      
       <SiteNav />
-      <main>
+      
+      <main className="relative">
+        <div className="mesh-gradient-navy absolute inset-0 -z-10 opacity-50" />
+        
         {/* 1. HOOK - Grab attention */}
         <Hero />
         <TrustBar />
@@ -84,6 +92,7 @@ function App() {
         <ApplicationFormSection />
         <FinalCTA />
       </main>
+      
       <SiteFooter />
     </div>
   );

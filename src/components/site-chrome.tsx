@@ -2,14 +2,30 @@ const logo = "/iconsbase-logo.png";
 
 export function SiteNav() {
   return (
-    <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-white/90 border-b border-zinc-200">
-      <div className="container-editorial flex items-center justify-between h-20">
-        <a href="/" className="flex items-center gap-2">
-          <img src={logo} alt="IconsBase — The AI Institute" className="h-14 w-auto" width={280} height={84} />
+    <header className="fixed top-0 inset-x-0 z-50 transition-all duration-500 bg-background/50 backdrop-blur-xl border-b border-white/5">
+      <div className="container-editorial flex items-center justify-between h-20 md:h-24">
+        <a href="/" className="flex items-center gap-2 group transition-all duration-500 hover:scale-105">
+          <img src={logo} alt="IconsBase — The AI Institute" className="h-10 md:h-12 w-auto invert brightness-0" width={280} height={84} />
         </a>
-        <a href="#application-form" className="text-xs uppercase tracking-[0.2em] px-6 py-3 bg-primary text-primary-foreground hover:bg-primary/90 transition-colors">
-          Apply
-        </a>
+        <div className="flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-8">
+            {["Program", "Curriculum", "Placements"].map((item) => (
+              <a 
+                key={item} 
+                href={`#${item.toLowerCase()}`} 
+                className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground hover:text-primary transition-colors"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+          <a
+            href="#application-form"
+            className="shimmer-btn text-[10px] sm:text-xs font-semibold uppercase tracking-[0.2em] px-6 md:px-8 py-3 md:py-4 bg-primary text-primary-foreground hover:bg-primary/90 transition-all shadow-xl shadow-primary/10"
+          >
+            Apply Now
+          </a>
+        </div>
       </div>
     </header>
   );
@@ -17,32 +33,63 @@ export function SiteNav() {
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border mt-32">
-      <div className="container-editorial py-16 grid md:grid-cols-3 gap-12">
-        <div>
-          <img src={logo} alt="IconsBase — The AI Institute" className="h-10 w-auto mb-4" width={200} height={60} loading="lazy" />
-          <p className="text-sm text-muted-foreground max-w-xs">A structured video editing career system. Built for the people who actually ship.</p>
+    <footer className="border-t border-white/5 mt-32 relative overflow-hidden bg-background">
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/5 blur-[150px] -z-10 rounded-full" />
+      
+      <div className="container-editorial py-24 grid md:grid-cols-12 gap-16 md:gap-8">
+        <div className="md:col-span-5">
+          <img src={logo} alt="IconsBase — The AI Institute" className="h-10 md:h-12 w-auto mb-8 invert brightness-0" width={280} height={84} loading="lazy" />
+          <p className="text-base text-muted-foreground max-w-sm leading-relaxed">
+            A structured video editing career system. <br />
+            Built for the people who actually ship.
+          </p>
+          <div className="mt-10 flex gap-6">
+            {/* Social links placeholder */}
+            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer">
+              <span className="text-xs uppercase tracking-widest">ig</span>
+            </div>
+            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer">
+              <span className="text-xs uppercase tracking-widest">yt</span>
+            </div>
+          </div>
         </div>
-        <div className="text-sm">
-          <p className="eyebrow mb-4">Program</p>
-          <ul className="space-y-2 text-muted-foreground">
-            <li>Curriculum</li>
-            <li>Mentors</li>
-            <li>Placements</li>
+        
+        <div className="md:col-span-2 md:offset-1">
+          <p className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary mb-8">Program</p>
+          <ul className="space-y-4 text-sm text-muted-foreground">
+            <li className="hover:text-foreground transition-colors cursor-pointer">Curriculum</li>
+            <li className="hover:text-foreground transition-colors cursor-pointer">Mentors</li>
+            <li className="hover:text-foreground transition-colors cursor-pointer">Placements</li>
+            <li className="hover:text-foreground transition-colors cursor-pointer">Admissions</li>
           </ul>
         </div>
-        <div className="text-sm">
-          <p className="eyebrow mb-4">Contact</p>
-          <ul className="space-y-2 text-muted-foreground">
-            <li>admissions@iconsbase.co</li>
+        
+        <div className="md:col-span-2">
+          <p className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary mb-8">Resources</p>
+          <ul className="space-y-4 text-sm text-muted-foreground">
+            <li className="hover:text-foreground transition-colors cursor-pointer">Editing Wiki</li>
+            <li className="hover:text-foreground transition-colors cursor-pointer">Career Guide</li>
+            <li className="hover:text-foreground transition-colors cursor-pointer">Job Board</li>
+          </ul>
+        </div>
+
+        <div className="md:col-span-2">
+          <p className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary mb-8">Contact</p>
+          <ul className="space-y-4 text-sm text-muted-foreground">
+            <li className="hover:text-foreground transition-colors cursor-pointer">admissions@iconsbase.co</li>
             <li>Mumbai · Remote</li>
           </ul>
         </div>
       </div>
-      <div className="border-t border-border">
-        <div className="container-editorial py-6 flex flex-col md:flex-row justify-between text-xs text-muted-foreground gap-2">
+      
+      <div className="border-t border-white/5 bg-black/20">
+        <div className="container-editorial py-10 flex flex-col md:flex-row justify-between text-[10px] uppercase tracking-[0.2em] text-muted-foreground/60 gap-6">
           <span>© {new Date().getFullYear()} IconsBase · The AI Institute. All rights reserved.</span>
-          <span>Selection-based admission · Limited cohort</span>
+          <div className="flex gap-8">
+            <span className="hover:text-primary transition-colors cursor-pointer">Privacy</span>
+            <span className="hover:text-primary transition-colors cursor-pointer">Terms</span>
+            <span className="hover:text-primary transition-colors cursor-pointer">Selection-based admission</span>
+          </div>
         </div>
       </div>
     </footer>
