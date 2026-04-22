@@ -305,7 +305,7 @@ export function ApplicationFormSection() {
             <p className="text-navy-foreground/70 text-lg mb-8">
               Fill out the application form and take the first step toward a structured video editing career with guaranteed internship and job placement.
             </p>
-            
+
             <div className="space-y-6">
               <div className="flex items-start gap-4">
                 <div className="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center shrink-0 mt-1">
@@ -479,7 +479,7 @@ export function ApplicationFormSection() {
                   <p className="text-sm text-muted-foreground mb-8">
                     We've sent a confirmation to <span className="text-foreground">{formData.email}</span>
                   </p>
-                  
+
                   <div className="bg-background border border-border rounded-lg p-6 mb-6">
                     <p className="text-sm font-medium mb-4">What happens next?</p>
                     <ul className="space-y-3 text-sm text-left">
@@ -510,3 +510,5 @@ export function ApplicationFormSection() {
     </section>
   );
 }
+
+
