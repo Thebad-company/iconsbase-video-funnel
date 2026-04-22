@@ -1,3 +1,5 @@
+import { Facebook, Instagram, Linkedin } from "lucide-react";
+
 const logo = "/iconsbase-logo.png";
 
 export function SiteNav() {
@@ -37,24 +39,26 @@ export function SiteFooter() {
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-primary/5 blur-[150px] -z-10 rounded-full" />
       
       <div className="container-editorial py-24 grid md:grid-cols-12 gap-16 md:gap-8">
-        <div className="md:col-span-5">
+        <div className="md:col-span-4">
           <img src={logo} alt="IconsBase — The AI Institute" className="h-10 md:h-12 w-auto mb-8 invert brightness-0" width={280} height={84} loading="lazy" />
           <p className="text-base text-muted-foreground max-w-sm leading-relaxed">
             A structured video editing career system. <br />
             Built for the people who actually ship.
           </p>
           <div className="mt-10 flex gap-6">
-            {/* Social links placeholder */}
-            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer">
-              <span className="text-xs uppercase tracking-widest">ig</span>
-            </div>
-            <div className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary transition-colors cursor-pointer">
-              <span className="text-xs uppercase tracking-widest">yt</span>
-            </div>
+            <a href="https://www.facebook.com/iconsbasehq" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-all cursor-pointer">
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a href="https://www.instagram.com/iconsbasehq/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-all cursor-pointer" aria-label="Instagram">
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a href="https://www.linkedin.com/company/iconsbasehq/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center hover:border-primary hover:text-primary transition-all cursor-pointer">
+              <Linkedin className="w-4 h-4" />
+            </a>
           </div>
         </div>
         
-        <div className="md:col-span-2 md:offset-1">
+        <div className="md:col-span-2">
           <p className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary mb-8">Program</p>
           <ul className="space-y-4 text-sm text-muted-foreground">
             <li className="hover:text-foreground transition-colors cursor-pointer">Curriculum</li>
@@ -73,11 +77,21 @@ export function SiteFooter() {
           </ul>
         </div>
 
-        <div className="md:col-span-2">
+        <div className="md:col-span-4">
           <p className="text-[10px] uppercase tracking-[0.3em] font-semibold text-primary mb-8">Contact</p>
           <ul className="space-y-4 text-sm text-muted-foreground">
-            <li className="hover:text-foreground transition-colors cursor-pointer">admissions@iconsbase.co</li>
-            <li>Mumbai · Remote</li>
+            <li>
+              <a href="mailto:hello@iconsbase.com" className="hover:text-foreground transition-colors">hello@iconsbase.com</a>
+            </li>
+            <li>
+              <a href="tel:+917030400090" className="hover:text-foreground transition-colors">+91 7030400090</a>
+            </li>
+            <li className="leading-relaxed">
+              IconsBase – The AI Institute<br />
+              B1/22 – B, First Floor, Gandhi Path Rd,<br />
+              Chitrakoot, Vaishali Nagar, Jaipur,<br />
+              Rajasthan 302021
+            </li>
           </ul>
         </div>
       </div>
